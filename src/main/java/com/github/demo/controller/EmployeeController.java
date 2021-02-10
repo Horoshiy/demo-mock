@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeRepository repository;
@@ -36,19 +36,19 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(emp);
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/")
     public ResponseEntity<List<Employee>> getEmployees() {
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
         Employee employee = repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
 
         return ResponseEntity.ok(employee);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         repository.deleteById(id);
 
